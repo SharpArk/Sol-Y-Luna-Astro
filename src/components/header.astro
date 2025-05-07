@@ -12,7 +12,7 @@ const Active = Astro.props.active || "Index";
     >
       Sol y Luna
       <div
-        class={`absolute -z-10 top-0 left-0 h-full w-full rounded-full transition-all duration-300 ${Active == "index" ? "bg-[#3b2249] transition-[top,left]" : "bg-transparent transition-none"}`}
+        class={`absolute -z-10 top-0 left-0 h-full w-full rounded-full transition-all duration-300 ${Active == "index" ? "bg-[#3b2249]" : "bg-transparent transition-none"}`}
         transition:name={`${Active == "index" ? "header_element" : ""}`}
       >
       </div>
@@ -23,7 +23,7 @@ const Active = Astro.props.active || "Index";
     >
       Tienda en linea
       <div
-        class={`absolute -z-10 top-0 left-0 h-full w-full rounded-full transition-all duration-300 ${Active == "Tienda" ? "bg-[#3b2249] transition-[top,left]" : "bg-transparent transition-none"}`}
+        class={`absolute -z-10 top-0 left-0 h-full w-full rounded-full transition-all duration-300 ${Active == "Tienda" ? "bg-[#3b2249]" : "bg-transparent transition-none"}`}
         transition:name={`${Active == "Tienda" ? "header_element" : ""}`}
       >
       </div>
@@ -34,7 +34,7 @@ const Active = Astro.props.active || "Index";
     >
       Contacto
       <div
-        class={`absolute -z-10 top-0 left-0 h-full w-full rounded-full transition-all duration-300 ${Active == "Contacto" ? "bg-[#3b2249] transition-[top,left]" : "bg-transparent transition-none"}`}
+        class={`absolute -z-10 top-0 left-0 h-full w-full rounded-full transition-all duration-300 ${Active == "Contacto" ? "bg-[#3b2249]" : "bg-transparent transition-none"}`}
         transition:name={`${Active == "Contacto" ? "header_element" : ""}`}
       >
       </div>
