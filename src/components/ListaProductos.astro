@@ -110,6 +110,26 @@
     mask-image: linear-gradient(to left, #000 80%, transparent);
     transition: opacity 0.3s ease;
   }
+
+  article::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("/hover/hover-article.svg");
+    background-size: cover;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transition: 0.3s ease;
+  }
+
+  article:hover::after {
+    width: calc(100% + 15px);
+    height: calc(100% + 15px);
+    opacity: 1;
+  }
 </style>
 
 <script>
@@ -119,12 +139,10 @@
     const gradient = document.querySelector<HTMLElement>(".efect");
     let timeoutId: number | null = null;
 
-    // Primero removemos los event listeners existentes
     articles.forEach((article) => {
       article.replaceWith(article.cloneNode(true));
     });
 
-    // Obtenemos los elementos actualizados
     const updatedArticles = document.querySelectorAll<HTMLElement>("article");
 
     updatedArticles.forEach((article, i) => {
@@ -151,9 +169,6 @@
     });
   }
 
-  // Inicializamos los event listeners
   initHoverEffect();
-
-  // Reinicializamos los event listeners después de la navegación
   document.addEventListener("astro:after-swap", initHoverEffect);
 </script>
