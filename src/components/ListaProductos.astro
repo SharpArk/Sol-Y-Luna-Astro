@@ -1,10 +1,159 @@
-<article class="w-[500px] h-[600px]">
-  <div>
-    <img src="/img-1.jpg">
+<a href="/Tienda/producto/1">
+  <article
+    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
+    data-img="img-1"
+  >
+    <div>
+      <img
+        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
+        src="/img-1.jpg"
+      />
+    </div>
+    <div class="text-black flex flex-col items-center justify-start p-2">
+      <p>Titulo de producto</p>
+      <p>Descripción Corta</p>
+      <p>precio</p>
+    </div>
+  </article>
+</a>
+<a href="/Tienda/producto/2">
+  <article
+    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
+    data-img="img-2"
+  >
+    <div>
+      <img
+        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
+        src="/img-2.jpg"
+      />
+    </div>
+    <div class="text-black flex flex-col items-center justify-start p-2">
+      <p>Titulo de producto</p>
+      <p>Descripción Corta</p>
+      <p>precio</p>
+    </div>
+  </article>
+</a>
+<a href="/Tienda/producto/3">
+  <article
+    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
+    data-img="img-3"
+  >
+    <div>
+      <img
+        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
+        src="/img-3.jpg"
+      />
+    </div>
+    <div class="text-black flex flex-col items-center justify-start p-2">
+      <p>Titulo de producto</p>
+      <p>Descripción Corta</p>
+      <p>precio</p>
+    </div>
+  </article>
+</a>
+<a href="/Tienda/producto/4">
+  <article
+    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
+    data-img="img-4"
+  >
+    <div>
+      <img
+        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
+        src="/img-4.jpg"
+      />
+    </div>
+    <div class="text-black flex flex-col items-center justify-start p-2">
+      <p>Titulo de producto</p>
+      <p>Descripción Corta</p>
+      <p>precio</p>
+    </div>
+  </article>
+</a>
+<div class="w-[50%] fixed right-0 top-0 h-screen">
+  <div
+    class="absolute inset-0 bg-gradient-to-l from-[#fe68a6] to-[#343446] pointer-events-none animate-pulse efect"
+  >
   </div>
-  <div>
-    <p>Titulo de producto</p>
-    <p>Descripción Corta</p>
-    <p>precio</p>
-  </div>
-</article>
+  <img
+    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
+    src="/img-1.jpg"
+    alt=""
+    data-img="img-1"
+    transition:name="img-1"
+  />
+  <img
+    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
+    src="/img-2.jpg"
+    alt=""
+    data-img="img-2"
+    transition:name="img-2"
+  />
+  <img
+    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
+    src="/img-3.jpg"
+    alt=""
+    data-img="img-3"
+    transition:name="img-3"
+  />
+  <img
+    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
+    src="/img-4.jpg"
+    alt=""
+    data-img="img-4"
+    transition:name="img-4"
+  />
+</div>
+
+<style>
+  .img {
+    mask-image: linear-gradient(to left, #000 80%, transparent);
+    transition: opacity 0.3s ease;
+  }
+</style>
+
+<script>
+  function initHoverEffect() {
+    const imgs = document.querySelectorAll<HTMLImageElement>(".img");
+    const articles = document.querySelectorAll<HTMLElement>("article");
+    const gradient = document.querySelector<HTMLElement>(".efect");
+    let timeoutId: number | null = null;
+
+    // Primero removemos los event listeners existentes
+    articles.forEach((article) => {
+      article.replaceWith(article.cloneNode(true));
+    });
+
+    // Obtenemos los elementos actualizados
+    const updatedArticles = document.querySelectorAll<HTMLElement>("article");
+
+    updatedArticles.forEach((article, i) => {
+      const image = imgs[i];
+
+      article.addEventListener("mouseenter", () => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+          timeoutId = null;
+        }
+        imgs.forEach((img) => img.classList.add("opacity-0"));
+        image.classList.remove("opacity-0");
+        if (gradient) {
+          gradient.classList.add("opacity-0");
+        }
+      });
+
+      article.addEventListener("mouseleave", () => {
+        if (gradient) {
+          gradient.classList.remove("opacity-0");
+        }
+        image.classList.add("opacity-0");
+      });
+    });
+  }
+
+  // Inicializamos los event listeners
+  initHoverEffect();
+
+  // Reinicializamos los event listeners después de la navegación
+  document.addEventListener("astro:after-swap", initHoverEffect);
+</script>

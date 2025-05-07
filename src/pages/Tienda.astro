@@ -4,9 +4,13 @@ import ListaProductos from "../components/ListaProductos.astro";
 ---
 
 <Layout
-Title="Sol y Luna - Tienda de ropa"
-Description="Productos"
-Active="Tienda"
+  Title="Sol y Luna - Tienda de ropa"
+  Description="Productos"
+  Active="Tienda"
 >
-  <ListaProductos />
+  <section
+    class="w-[50vw] min-h-screen flex items-center justify-center gap-4 p-4 flex-wrap"
+  >
+    <ListaProductos />
+  </section>
 </Layout>
