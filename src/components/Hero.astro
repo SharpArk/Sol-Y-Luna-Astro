@@ -1,7 +1,7 @@
 <section
   class="flex w-full h-screen justify-center items-center font-[Oxanium]"
 >
-  <h3 class="absolute text-6xl font-bold opacity-0 -z-30 animate-hero">
+  <h3 class="absolute text-8xl font-bold opacity-0 -z-30 animate-hero">
     SOL Y LUNA
   </h3>
   <div
@@ -27,7 +27,9 @@
     >
       <div
         class="w-[554px] flex justify-center items-center gap-4 p-6 bg-[#878ba930] backdrop-blur-2xl rounded-4xl cursor-pointer
-        hover:bg-[#fe68a630] transition-colors duration-300"
+      hover:bg-[#fe68a630] transition-colors duration-300"
+        onmouseover="clearTimeout(window.imageTimeout); document.querySelector('.principal-image').src='/img-2.jpg'"
+        onmouseout="window.imageTimeout = setTimeout(() => document.querySelector('.principal-image').src='/img-1.jpg', 300)"
       >
         <img
           class="size-60 rounded-[100%] object-cover"
@@ -41,7 +43,9 @@
       </div>
       <div
         class="w-[554px] flex justify-center items-center gap-4 p-6 bg-[#878ba930] backdrop-blur-2xl rounded-4xl cursor-pointer
-        hover:bg-[#fe68a630] transition-colors duration-300"
+      hover:bg-[#fe68a630] transition-colors duration-300"
+        onmouseover="clearTimeout(window.imageTimeout); document.querySelector('.principal-image').src='/img-3.jpg'"
+        onmouseout="window.imageTimeout = setTimeout(() => document.querySelector('.principal-image').src='/img-1.jpg', 300)"
       >
         <img
           class="size-60 rounded-[100%] object-cover"
@@ -55,7 +59,9 @@
       </div>
       <div
         class="w-[554px] flex justify-center items-center gap-4 p-6 bg-[#878ba930] backdrop-blur-2xl rounded-4xl cursor-pointer
-        hover:bg-[#fe68a630] transition-colors duration-300"
+      hover:bg-[#fe68a630] transition-colors duration-300"
+        onmouseover="clearTimeout(window.imageTimeout); document.querySelector('.principal-image').src='/img-4.jpg'"
+        onmouseout="window.imageTimeout = setTimeout(() => document.querySelector('.principal-image').src='/img-1.jpg', 300)"
       >
         <img
           class="size-60 rounded-[100%] object-cover"
@@ -69,14 +75,13 @@
       </div>
     </div>
   </div>
-  <div
-    class="w-screen h-screen absolute left-0 top-0 bg-[#00000001] backdrop-blur-[600px] -z-10"
-  >
-  </div>
-  <div class="absolute w-[40%] h-[20%] bg-[#fe68a6] bottom-0 left-0 -z-20">
-  </div>
-  <div class="absolute w-[40%] h-[20%] bg-[#8798f2] top-0 left-0 -z-20"></div>
 </section>
+<div
+  class="w-screen h-screen absolute left-0 top-0 bg-[#00000001] backdrop-blur-[600px] -z-10"
+>
+</div>
+<div class="absolute w-[40%] h-[20%] bg-[#fe68a6] bottom-0 left-0 -z-20"></div>
+<div class="absolute w-[40%] h-[20%] bg-[#8798f2] top-0 left-0 -z-20"></div>
 
 <style>
   @keyframes hero {
