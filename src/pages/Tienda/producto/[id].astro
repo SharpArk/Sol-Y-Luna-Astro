@@ -19,27 +19,141 @@ export async function getStaticPaths() {
     },
   ];
 }
+
+const extraImages = [`img-${id}.jpg`, `img-${id}-1.jpg`, `img-${id}-2.jpg`];
 ---
 
 <Layout Title="Producto" Description="Descripción del producto" Active="Tienda">
-  <article
-    class="flex w-screen h-screen justify-center items-center flex-col gap-5"
-  >
-    <img
-      class="h-screen"
-      transition:name={`img-${id}`}
-      src={`/img-${id}.jpg`}
-    />
+  <div class="flex h-screen w-screen fixed justify-between items-center p-12">
+    <div class="flex flex-col gap-5">
+      {
+        extraImages.map((img, index) => (
+          <img
+            class="w-[150px] h-[200px] object-cover rounded-3xl cursor-pointer grayscale transition-all duration-300"
+            alt={`Imagen del producto ${id}`}
+            src={`/productos/${img}`}
+            data-img={img}
+            data-index={index}
+          />
+        ))
+      }
+    </div>
+    <div class="flex flex-col gap-5">
+      <h1 class="text-5xl relative uppercase">
+        Titulo del producto
+        <div
+          class="w-full h-full blur-2xl bg-[#e91e63] absolute top-0 left-0 -z-10"
+        >
+        </div>
+      </h1>
+      <p>Descripción larga</p>
+      <div class="flex gap-2">
+        <p>talla1</p>
+        <p>talla2</p>
+        <p>talla3</p>
+      </div>
+      <p class="price relative w-fit text-2xl">Precio</p>
+      <button
+        class="uppercase p-4 border-4 border-[#e91e63] rounded-full text-[#e91e63] font-bold cursor-pointer hover:bg-[#e91e63] hover:text-white transition-colors duration-300"
+        >Añadir al carrito</button
+      >
+    </div>
+  </div>
+  <article class="flex w-screen justify-center items-center flex-col gap-5">
+    {
+      extraImages.map((img, index) => (
+        <img
+          class="h-screen img"
+          alt={`Imagen del producto ${id}`}
+          src={`/productos/${img}`}
+          data-img={img}
+          data-index={index}
+        />
+      ))
+    }
   </article>
 </Layout>
 
+<script type="module">
+  const grayScaleEffect = () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = entry.target.dataset.index;
+          const fixedImage = document.querySelector(
+            `.fixed img[data-index="${index}"]`
+          );
+          if (fixedImage) {
+            if (entry.isIntersecting) {
+              fixedImage.classList.remove("grayscale");
+            } else {
+              fixedImage.classList.add("grayscale");
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll("article img").forEach((img) => {
+      observer.observe(img);
+    });
+
+    document.querySelectorAll(".fixed img").forEach((img) => {
+      img.addEventListener("click", (event) => {
+        const index = event.target.dataset.index;
+        const targetImage = document.querySelector(
+          `article img[data-index="${index}"]`
+        );
+        if (targetImage) {
+          targetImage.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    });
+  };
+
+  const waitForContentAndRun = () => {
+    requestAnimationFrame(() => {
+      grayScaleEffect();
+    });
+  };
+  if (document.readyState !== "loading") {
+    grayScaleEffect();
+  } else {
+    document.addEventListener("DOMContentLoaded", grayScaleEffect);
+  }
+  document.addEventListener("astro:after-swap", waitForContentAndRun);
+</script>
+
 <style>
-  img {
+  .img {
     mask-image: linear-gradient(
       90deg,
       transparent 0%,
       black 50%,
       transparent 100%
     );
+  }
+
+  .price::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #8798f2;
+    filter: blur(14px);
+    z-index: -1;
+  }
+
+  .fixed img {
+    transition:
+      transform 0.3s ease,
+      filter 0.3s ease;
+  }
+
+  .fixed img:not(.grayscale) {
+    transform: scale(1.1) translateX(50px);
   }
 </style>
