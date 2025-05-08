@@ -23,7 +23,11 @@ export async function getStaticPaths() {
 const extraImages = [`img-${id}.jpg`, `img-${id}-1.jpg`, `img-${id}-2.jpg`];
 ---
 
-<Layout Title="Producto" Description="Descripción del producto" Active="Tienda">
+<Layout
+  Title="Sol y Luna - Titulo del producto"
+  Description="Descripción del producto"
+  Active="Tienda"
+>
   <div class="flex h-screen w-screen fixed justify-between items-center p-12">
     <div class="flex flex-col gap-5">
       {
