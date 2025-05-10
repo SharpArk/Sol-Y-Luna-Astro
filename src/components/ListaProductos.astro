@@ -19,9 +19,10 @@ interface Size {
   product: string;
 }
 
-const data = await fetch("http://localhost:8000/store/products/");
+import { API_URL } from "astro:env/server";
+
+const data = await fetch(`${API_URL}/store/products/`);
 const productos: Producto[] = await data.json();
-console.log(productos);
 ---
 
 {
@@ -34,7 +35,7 @@ console.log(productos);
         <div>
           <img
             class="w-[250px] h-[200px] object-cover rounded-t-3xl"
-            src="/productos/img-1.jpg"
+            src={`${API_URL}/imgs/${producto.image[0]}`}
           />
         </div>
         <div class="text-black flex flex-col items-center justify-start p-2">
@@ -51,6 +52,17 @@ console.log(productos);
   <div
     class="absolute inset-0 bg-gradient-to-l from-[#fe68a6] to-[#343446] pointer-events-none animate-pulse efect"
   >
+    {
+      productos.map((producto: Producto) => (
+        <img
+          class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
+          src={`${API_URL}/imgs/${producto.image[0]}`}
+          alt=""
+          data-img={producto.image[0]}
+          transition:name={`${producto.image[0]}`}
+        />
+      ))
+    }
   </div>
 </div>
 
