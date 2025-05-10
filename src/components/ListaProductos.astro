@@ -1,108 +1,57 @@
-<a href="/Tienda/producto/1">
-  <article
-    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
-    data-img="img-1"
-  >
-    <div>
-      <img
-        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
-        src="/productos/img-1.jpg"
-      />
-    </div>
-    <div class="text-black flex flex-col items-center justify-start p-2">
-      <p>Titulo de producto</p>
-      <p>Descripción Corta</p>
-      <p>precio</p>
-    </div>
-  </article>
-</a>
-<a href="/Tienda/producto/2">
-  <article
-    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
-    data-img="img-2"
-  >
-    <div>
-      <img
-        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
-        src="/productos/img-2.jpg"
-      />
-    </div>
-    <div class="text-black flex flex-col items-center justify-start p-2">
-      <p>Titulo de producto</p>
-      <p>Descripción Corta</p>
-      <p>precio</p>
-    </div>
-  </article>
-</a>
-<a href="/Tienda/producto/3">
-  <article
-    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
-    data-img="img-3"
-  >
-    <div>
-      <img
-        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
-        src="/productos/img-3.jpg"
-      />
-    </div>
-    <div class="text-black flex flex-col items-center justify-start p-2">
-      <p>Titulo de producto</p>
-      <p>Descripción Corta</p>
-      <p>precio</p>
-    </div>
-  </article>
-</a>
-<a href="/Tienda/producto/4">
-  <article
-    class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
-    data-img="img-4"
-  >
-    <div>
-      <img
-        class="w-[250px] h-[200px] object-cover rounded-t-3xl"
-        src="/productos/img-4.jpg"
-      />
-    </div>
-    <div class="text-black flex flex-col items-center justify-start p-2">
-      <p>Titulo de producto</p>
-      <p>Descripción Corta</p>
-      <p>precio</p>
-    </div>
-  </article>
-</a>
+---
+interface Producto {
+  id: number;
+  name: string;
+  description_short: string;
+  image: Image[];
+  sizes: Size[];
+}
+
+interface Image {
+  image: string;
+  product: string;
+}
+
+interface Size {
+  id: number;
+  size: string;
+  price: number;
+  product: string;
+}
+
+const data = await fetch("http://localhost:8000/store/products/");
+const productos: Producto[] = await data.json();
+console.log(productos);
+---
+
+{
+  productos.map((producto: Producto) => (
+    <a href={`/Tienda/producto/${producto.id}`}>
+      <article
+        class="w-[250px] h-[300px] bg-[#fef1f7] rounded-3xl cursor-pointer relative"
+        data-img={producto.image[0]}
+      >
+        <div>
+          <img
+            class="w-[250px] h-[200px] object-cover rounded-t-3xl"
+            src="/productos/img-1.jpg"
+          />
+        </div>
+        <div class="text-black flex flex-col items-center justify-start p-2">
+          <p>{producto.name}</p>
+          <p>{producto.description_short}</p>
+          <p>{producto.sizes[0].price}</p>
+        </div>
+      </article>
+    </a>
+  ))
+}
+
 <div class="w-[50%] fixed right-0 top-0 h-screen">
   <div
     class="absolute inset-0 bg-gradient-to-l from-[#fe68a6] to-[#343446] pointer-events-none animate-pulse efect"
   >
   </div>
-  <img
-    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
-    src="/productos/img-1.jpg"
-    alt=""
-    data-img="img-1"
-    transition:name="img-1"
-  />
-  <img
-    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
-    src="/productos/img-2.jpg"
-    alt=""
-    data-img="img-2"
-    transition:name="img-2"
-  />
-  <img
-    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
-    src="/productos/img-3.jpg"
-    alt=""
-    data-img="img-3"
-    transition:name="img-3"
-  />
-  <img
-    class="w-full h-full object-cover img absolute transition-opacity duration-300 opacity-0"
-    src="/productos/img-4.jpg"
-    alt=""
-    data-img="img-4"
-    transition:name="img-4"
-  />
 </div>
 
 <style>

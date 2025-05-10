@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ListaProductos from "../components/ListaProductos.astro";
+export const prerender = true;
 ---
 
 <Layout
@@ -11,6 +12,6 @@ import ListaProductos from "../components/ListaProductos.astro";
   <section
     class="w-[50vw] min-h-screen flex items-center justify-center gap-4 p-4 flex-wrap"
   >
-    <ListaProductos />
+    <ListaProductos server:defer />
   </section>
 </Layout>
