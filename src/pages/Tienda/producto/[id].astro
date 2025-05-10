@@ -2,25 +2,39 @@
 import Layout from "../../../layouts/Layout.astro";
 
 const { id } = Astro.params;
-
-export async function getStaticPaths() {
-  return [
-    {
-      params: { id: "1" },
-    },
-    {
-      params: { id: "2" },
-    },
-    {
-      params: { id: "3" },
-    },
-    {
-      params: { id: "4" },
-    },
-  ];
+interface Producto {
+  id: number;
+  name: string;
+  description_short: string;
+  desctiption_long: string;
+  image: Image[];
+  sizes: Size[];
 }
 
-const extraImages = [`img-${id}.jpg`, `img-${id}-1.jpg`, `img-${id}-2.jpg`];
+interface Image {
+  image: string;
+  product: string;
+}
+
+interface Size {
+  id: number;
+  size: string;
+  price: number;
+  product: string;
+}
+
+import { API_URL } from "astro:env/server";
+
+const data = await fetch(`${API_URL}/store/products/`);
+const productos: Producto[] = await data.json();
+
+const ids = productos.map((producto: Producto) => producto.id);
+
+export async function getStaticPaths() {
+  return ids.map((id) => ({
+    params: { id: id.toString() },
+  }));
+}
 ---
 
 <Layout
@@ -31,49 +45,55 @@ const extraImages = [`img-${id}.jpg`, `img-${id}-1.jpg`, `img-${id}-2.jpg`];
   <div class="flex h-screen w-screen fixed justify-between items-center p-12">
     <div class="flex flex-col gap-5">
       {
-        extraImages.map((img, index) => (
-          <img
-            class="w-[150px] h-[200px] object-cover rounded-3xl cursor-pointer grayscale transition-all duration-300"
-            alt={`Imagen del producto ${id}`}
-            src={`/productos/${img}`}
-            data-img={img}
-            data-index={index}
-          />
-        ))
+        productos.map((producto: Producto) => {
+          if (producto.id === parseInt(id)) {
+            return (
+              <img
+                class="w-[500px] h-[500px] object-cover rounded-3xl"
+                src={`${API_URL}/imgs/${producto.image[0].image}`}
+                alt={`Imagen del producto ${id}`}
+              />
+            );
+          }
+        })
       }
     </div>
-    <div class="flex flex-col gap-5">
-      <h1 class="text-5xl relative uppercase">
-        Titulo del producto
-        <div
-          class="w-full h-full blur-2xl bg-[#e91e63] absolute top-0 left-0 -z-10"
-        >
+    {
+      productos.map((producto: Producto) => (
+        <div class="flex flex-col gap-5">
+          <h1 class="text-5xl relative uppercase">
+            {producto.name}
+            <div class="w-full h-full blur-2xl bg-[#e91e63] absolute top-0 left-0 -z-10" />
+          </h1>
+          <p>{producto.desctiption_long}</p>
+          <div class="flex gap-2">
+            {producto.sizes.map((size: Size) => (
+              <div class="flex flex-col gap-2">
+                <p class="text-2xl">{size.size}</p>
+              </div>
+            ))}
+          </div>
+          <p class="price relative w-fit text-2xl">{producto.sizes[0].price}</p>
+          <button class="uppercase p-4 border-4 border-[#e91e63] rounded-full text-[#e91e63] font-bold cursor-pointer hover:bg-[#e91e63] hover:text-white transition-colors duration-300">
+            Añadir al carrito
+          </button>
         </div>
-      </h1>
-      <p>Descripción larga</p>
-      <div class="flex gap-2">
-        <p>talla1</p>
-        <p>talla2</p>
-        <p>talla3</p>
-      </div>
-      <p class="price relative w-fit text-2xl">Precio</p>
-      <button
-        class="uppercase p-4 border-4 border-[#e91e63] rounded-full text-[#e91e63] font-bold cursor-pointer hover:bg-[#e91e63] hover:text-white transition-colors duration-300"
-        >Añadir al carrito</button
-      >
-    </div>
+      ))
+    }
   </div>
   <article class="flex w-screen justify-center items-center flex-col gap-5">
     {
-      extraImages.map((img, index) => (
-        <img
-          class="h-screen img"
-          alt={`Imagen del producto ${id}`}
-          src={`/productos/${img}`}
-          data-img={img}
-          data-index={index}
-        />
-      ))
+      productos.map((producto: Producto) => {
+        if (producto.id === parseInt(id)) {
+          return (
+            <img
+              class="w-[500px] h-[500px] object-cover rounded-3xl"
+              src={`${API_URL}/imgs/${producto.image[0].image}`}
+              alt={`Imagen del producto ${id}`}
+            />
+          );
+        }
+      })
     }
   </article>
 </Layout>
