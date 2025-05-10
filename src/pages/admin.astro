@@ -1,0 +1,10 @@
+---
+import AdminForm from "../components/AdminForm";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout Title="Admin Form" Description="Admin Form" Active="Admin Form">
+  <div class="w-screen min-h-screen flex items-center justify-center">
+    <AdminForm server:defer />
+  </div>
+</Layout>

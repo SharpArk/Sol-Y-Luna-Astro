@@ -1,3 +1,36 @@
+---
+interface Producto {
+  id: number;
+  name: string;
+  description_short: string;
+  image: Image[];
+  sizes: Size[];
+}
+
+interface Image {
+  image: string;
+  product: string;
+}
+
+interface Size {
+  id: number;
+  size: string;
+  price: number;
+  product: string;
+}
+
+import { API_URL } from "astro:env/server";
+
+const data = await fetch(`${API_URL}/store/products/`);
+const productos: Producto[] = await data.json();
+
+const getLastFourProducts = (products: Producto[]): Producto[] => {
+  return products.slice(-4);
+};
+
+const lastFourProducts: Producto[] = getLastFourProducts(productos);
+---
+
 <section
   class="flex w-full h-screen justify-center items-center font-[Oxanium]"
 >
