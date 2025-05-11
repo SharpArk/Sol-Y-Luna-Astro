@@ -1,24 +1,42 @@
 "use client";
-import { API_URL } from "astro:env/server";
+import { PUBLIC_API_URL } from "astro:env/client";
+import axios from "axios";
+import { useState } from "react";
 
 function AdminForm() {
+  const [Response, SetResponse] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value;
-    const description_short = e.target.description_short.value;
-    const description_long = e.target.description_long.value;
-    const size = e.target.size.value;
-    const image = e.target.image.files;
+    const formData = new FormData(e.target);
 
-    const res = await fetch(`${API_URL}/store/products`, {
-      method: "POST",
-      body: JSON.stringify({ name, description_short, description_long, size }),
+    let sizesPrices = formData.get("sizes");
+    sizesPrices = sizesPrices.split(",");
+
+    const sizes = [];
+    const prices = [];
+
+    const dataSizes = [];
+
+    sizesPrices.forEach((e) => {
+      const [size, price] = e.split(":");
+      dataSizes.push({
+        size: size.trim(),
+        price: price.trim(),
+      });
+    });
+
+    formData.delete("sizes");
+    formData.append("sizes", JSON.stringify(dataSizes));
+
+    const data = await axios.post(`${PUBLIC_API_URL}/store/product`, formData, {
       headers: {
-        "content-type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
       },
     });
-    const data = res.json();
+
+    SetResponse(data.data);
   };
 
   return (
@@ -28,7 +46,7 @@ function AdminForm() {
         onSubmit={handleSubmit}
       >
         <h3 className="w-full bg-gray-800 mb-3 p-5 text-gray-500 rounded-4xl uppercase">
-          Datos del producto
+          DATOS DEL PRODUCTO
         </h3>
         <div className="flex flex-col mb-4">
           <label htmlFor="name">Nombre del producto</label>
@@ -41,7 +59,7 @@ function AdminForm() {
           />
         </div>
         <div className="flex flex-col mb-4">
-          <label htmlFor="name">Nombre del producto</label>
+          <label htmlFor="name">Descripción corta</label>
           <input
             className="border-2 border-white rounded-lg p-2"
             id="description_short"
@@ -51,7 +69,7 @@ function AdminForm() {
           />
         </div>
         <div className="flex flex-col mb-4">
-          <label htmlFor="name">Nombre del producto</label>
+          <label htmlFor="name">Descripción larga</label>
           <textarea
             className="border-2 border-white rounded-lg p-2"
             id="description_long"
@@ -69,8 +87,8 @@ function AdminForm() {
           </label>
           <input
             className="border-2 border-white rounded-lg p-2"
-            id="size"
-            name="size"
+            id="sizes"
+            name="sizes"
             type="text"
             autoComplete="off"
           />
@@ -89,10 +107,23 @@ function AdminForm() {
             autoComplete="off"
           />
         </div>
-        <button class="border-4 cursor-pointer mt-6 border-white w-3xl h-12 rounded-full neon-effect bg-[#e91e63] text-white font-bold hover:bg-[#d01756] transition-all">
+        <button
+          type="submit"
+          className="border-4 cursor-pointer mt-6 border-white w-3xl h-12 rounded-full neon-effect bg-[#e91e63] text-white font-bold hover:bg-[#d01756] transition-all"
+        >
           Enviar
         </button>
       </form>
+      <div>
+        {Response && (
+          <div className="bg-gray-800 w-1/2 p-4 rounded-lg mt-4">
+            <h3 className="w-full bg-gray-800 mb-3 p-5 text-gray-500 rounded-4xl uppercase">
+              Respuesta
+            </h3>
+            <pre>{JSON.stringify(Response, null, 2)}</pre>
+          </div>
+        )}
+      </div>
     </>
   );
 }
