@@ -40,14 +40,16 @@ const productos: Producto[] = await data.json();
         <div class="text-black flex flex-col items-center justify-start p-2">
           <p>{producto.name}</p>
           <p>{producto.description_short}</p>
-          {producto.sizes && producto.sizes.length > 0 ? (
-            <>
-              <p>{producto.sizes[0].size}</p>
-              <p>${producto.sizes[0].price}</p>
-            </>
-          ) : (
-            <p>No sizes available</p>
-          )}
+          <div>
+            <div class="flex gap-2">
+              {producto.sizes.map((size: Size) => (
+                <p>{size.size}</p>
+              ))}
+            </div>
+          </div>
+          <p class="price relative text-[#32347d] font-bold">
+            {producto.sizes[0].price}
+          </p>
         </div>
       </article>
     </a>
