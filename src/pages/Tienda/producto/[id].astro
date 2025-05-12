@@ -29,13 +29,13 @@ interface Sizes {
 import { API_URL } from "astro:env/server";
 
 const data = await fetch(`${API_URL}/store/products/${id}`);
-const productos: Producto[] = await data.json();
+const producto: Producto = await data.json();
 
-const ids = productos.map((producto: Producto) => producto.id);
+
 export async function getStaticPaths() {
-  return ids.map((id) => ({
-    params: { id: id.toString() },
-  }));
+  return{
+    params: producto.id
+  }
 }
 ---
 
@@ -45,23 +45,19 @@ export async function getStaticPaths() {
   Active="Tienda"
 >
   <div class="flex h-screen w-screen fixed justify-between items-center p-12">
-    <div class="flex flex-col gap-5">
+    <div class="flex flex-col gap-5 left-2 top.3">
       {
-        productos.map((producto: Producto) => {
-          if (producto.id === parseInt(id)) {
-            return (
-              <img
-                class="w-[500px] h-[500px] object-cover rounded-3xl"
-                src={`${API_URL}/imgs/${producto.images[0].image}`}
-                alt={`Imagen del producto ${id}`}
-              />
-            );
-          }
-        })
+        producto.images.map((image: Images)=>(
+        <img
+            class="w-[200px] h-[300px] object-cover rounded-3xl cursor-pointer"
+            src={`${API_URL}/${image.image}`}
+            alt={`Imagen del producto ${id}`}
+            transition:name={`img-${image.id}`}
+          />
+        ))
       }
     </div>
     {
-      productos.map((producto: Producto) => (
         <div class="flex flex-col gap-5">
           <h1 class="text-5xl relative uppercase">
             {producto.name}
@@ -70,9 +66,7 @@ export async function getStaticPaths() {
           <p>{producto.desctiption_long}</p>
           <div class="flex gap-2">
             {producto.sizes.map((size: Sizes) => (
-              <div class="flex flex-col gap-2">
                 <p class="text-2xl">{size.size}</p>
-              </div>
             ))}
           </div>
           <p class="price relative w-fit text-2xl">{producto.sizes[0].price}</p>
@@ -80,22 +74,17 @@ export async function getStaticPaths() {
             Añadir al carrito
           </button>
         </div>
-      ))
     }
   </div>
   <article class="flex w-screen justify-center items-center flex-col gap-5">
     {
-      productos.map((producto: Producto) => {
-        if (producto.id === parseInt(id)) {
-          return (
-            <img
-              class="w-[500px] h-[500px] object-cover rounded-3xl"
-              src={`${API_URL}/imgs/${producto.images[0].image}`}
-              alt={`Imagen del producto ${id}`}
-            />
-          );
-        }
-      })
+      producto.images.map((img: Images)=>(
+      <img
+          class="w-[500px] h-[500px] object-cover rounded-3xl"
+          src={`${API_URL}/${img.image}`}
+          alt={`Imagen del producto ${id}`}
+        />
+      ))
     }
   </article>
 </Layout>
@@ -121,11 +110,13 @@ export async function getStaticPaths() {
       { threshold: 0.5 }
     );
 
-    document.querySelectorAll("article img").forEach((img) => {
+    document.querySelectorAll("article img").forEach((img, index) => {
+      img.dataset.index = index;
       observer.observe(img);
     });
 
-    document.querySelectorAll(".fixed img").forEach((img) => {
+    document.querySelectorAll(".fixed img").forEach((img, index) => {
+      img.dataset.index = index;
       img.addEventListener("click", (event) => {
         const index = event.target.dataset.index;
         const targetImage = document.querySelector(
@@ -138,17 +129,16 @@ export async function getStaticPaths() {
     });
   };
 
-  const waitForContentAndRun = () => {
+  document.addEventListener("astro:after-swap", () => {
     requestAnimationFrame(() => {
       grayScaleEffect();
     });
-  };
-  if (document.readyState !== "loading") {
+  });
+
+  // Ejecutar al cargar por primera vez
+  requestAnimationFrame(() => {
     grayScaleEffect();
-  } else {
-    document.addEventListener("DOMContentLoaded", grayScaleEffect);
-  }
-  document.addEventListener("astro:after-swap", waitForContentAndRun);
+  });
 </script>
 
 <style>

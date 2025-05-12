@@ -8,6 +8,7 @@ interface Producto {
 }
 
 interface Images {
+  id: number;
   image: string;
   product: string;
 }
@@ -67,7 +68,7 @@ const productos: Producto[] = await data.json();
         src={`${PUBLIC_API_URL}/${producto.images[0].image}`}
         alt=""
         data-img={producto.images[0].image}
-        transition:name={`${producto.id}`}
+        transition:name={`img-${producto.images[0].id}`}
       />
     ))
   }
