@@ -37,8 +37,9 @@ const productos: Producto[] = await data.json();
         <img
           class="w-[250px] h-[200px] object-cover rounded-t-3xl"
           src={`${PUBLIC_API_URL}/${producto.images[0].image}`}
+          transition:name={`img-${producto.images[0].id}`}
         />
-        <div class="text-black flex flex-col items-center justify-start p-2">
+        <div class="text-black flex flex-col items-center justify-start p-4 gap-2">
           <p>{producto.name}</p>
           <p>{producto.description_short}</p>
           <div>
