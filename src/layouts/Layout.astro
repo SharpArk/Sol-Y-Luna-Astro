@@ -4,6 +4,12 @@ import { ClientRouter } from "astro:transitions";
 
 import "../styles/global.css";
 import Header from "../components/header.astro";
+
+export interface Props {
+  Title: string;
+  Description: string;
+  Active: string;
+}
 ---
 
 <!doctype html>
