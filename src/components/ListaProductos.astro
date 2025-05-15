@@ -41,7 +41,6 @@ const productos: Producto[] = await data.json();
         />
         <div class="text-black flex flex-col items-center justify-start p-4 gap-2">
           <p>{producto.name}</p>
-          <p>{producto.description_short}</p>
           <div>
             <div class="flex gap-2">
               {producto.sizes.map((size: Size) => (
