@@ -1,6 +1,16 @@
 ---
 import AdminForm from "../components/AdminForm";
 import Layout from "../layouts/Layout.astro";
+
+import { validateAdminToken } from "../utils/authAdmin";
+
+let user: any;
+try {
+  user = validateAdminToken(Astro.request.headers);
+} catch (e) {
+  console.log(e);
+  return Astro.redirect("/login");
+}
 ---
 
 <Layout Title="Admin Form" Description="Admin Form" Active="Admin Form">
