@@ -20,6 +20,7 @@ export default defineConfig({
         context: "client",
         access: "public",
       }),
+      JWT_SECRET: envField.string({ context: "server", access: "secret" }),
     },
   },
 
