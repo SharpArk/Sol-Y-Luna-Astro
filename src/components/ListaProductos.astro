@@ -107,6 +107,10 @@ const productos: Producto[] = await data.json();
     const imgs = document.querySelectorAll(".img");
 
     document.querySelectorAll("article").forEach((article) => {
+      // Prevenir múltiples listeners si ya fue inicializado
+      if (article.dataset.init === "true") return;
+      article.dataset.init = "true";
+
       const targetImgName = article.getAttribute("data-img");
 
       article.addEventListener("mouseenter", () => {
@@ -127,14 +131,18 @@ const productos: Producto[] = await data.json();
     });
   }
 
-  document.addEventListener("astro:after-swap", () => {
-    requestAnimationFrame(() => {
-      initHoverEffect();
+  function reinitializeHoverEffect() {
+    // Esperar a que el navegador esté en reposo y haya renderizado el nuevo contenido
+    requestIdleCallback(() => {
+      requestAnimationFrame(() => {
+        initHoverEffect();
+      });
     });
-  });
+  }
 
   // Ejecutar al cargar por primera vez
-  requestAnimationFrame(() => {
-    initHoverEffect();
-  });
+  reinitializeHoverEffect();
+
+  // Ejecutar después de cada transición con Astro
+  document.addEventListener("astro:after-swap", reinitializeHoverEffect);
 </script>
