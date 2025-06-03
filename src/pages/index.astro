@@ -15,20 +15,32 @@ export const prerender = true;
 >
   <Hero server:defer> cargando... </Hero>
   <section
-    class="w-screen h-screen flex justify-start items-center bg-[url('/image.png')] bg-cover p-6 bg-fixed font-[Oxanium] tracking-wider leading-relaxed"
+    class="w-screen h-screen flex justify-start items-center bg-[url('/image.png')] bg-cover p-6 bg-fixed font-[Oxanium] tracking-wider leading-relaxed relative"
   >
-    <p
-      class="text-center w-[60vw] p-4 bg-[#44456030] rounded-[25px] backdrop-blur-2xl text-3xl font-[Oxanium] tracking-wider leading-relaxed"
+    <div
+      class="absolute w-full h-28 bg-[#1a1a40] top-0 left-0 shadow-[20px_10px_20px_rgba(240,_46,_170,_0.7)] flex justify-center items-center"
     >
-      Sol y Luna es una empresa que busca reflejar emoción y entusiasmo,
-      hipnotizar a las personas con sus diseños, dar esa sensación de estar
-      compartiendo con una marca segura y acogedora, sintiéndose identificado al
-      verla.
-    </p>
+      <h3 class="uppercase text-3xl font-bold">¿Quienes Somos?</h3>
+    </div>
+    <div>
+      <p
+        class="text-center w-[60vw] p-4 bg-[#44456030] rounded-[25px] backdrop-blur-2xl text-3xl font-[Oxanium] tracking-wider leading-relaxed"
+      >
+        Sol y Luna es una empresa que busca reflejar emoción y entusiasmo,
+        hipnotizar a las personas con sus diseños, dar esa sensación de estar
+        compartiendo con una marca segura y acogedora, sintiéndose identificado
+        al verla.
+      </p>
+    </div>
   </section>
   <section
-    class="w-screen h-screen flex justify-center items-center bg-[url('/image-2.png')] bg-cover tracking-wider leading-relaxed"
+    class="w-screen h-screen flex justify-center items-center bg-[url('/image-2.png')] bg-cover tracking-wider leading-relaxed relative"
   >
+    <div
+      class="absolute w-full h-28 bg-[#1a1a40] top-0 left-0 shadow-[20px_10px_20px_rgba(240,_46,_170,_0.7)] flex justify-center items-center"
+    >
+      <h3 class="uppercase text-3xl font-bold">¿Que buscamos?</h3>
+    </div>
     <p
       class="text-center w-[60vw] p-4 bg-[#44456030] rounded-[25px] backdrop-blur-2xl text-3xl font-[Oxanium] tracking-wider leading-relaxed"
     >

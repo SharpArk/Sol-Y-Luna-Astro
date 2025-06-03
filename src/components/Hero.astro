@@ -27,20 +27,20 @@ const data = await fetch(`${API_URL}/store/product4/`);
 const productos: Producto[] = await data.json();
 ---
 
-<section class="w-screen h-screen flex">
+<section class="w-screen h-screen flex z-0">
   {
     productos.map((product: Producto) => (
       <div>
         <div>
           <img
-            class={`h-screen w-[40vw] object-cover absolute z-[${product.id}] right-0 img`}
+            class={`h-screen w-1/2 object-cover absolute z-[${product.id}] right-0 img`}
             src={`${API_URL}/${product.images[0].image}`}
             data-img={`${API_URL}/${product.images[0].image}`}
             id={`img-${product.id}`}
           />
         </div>
         <div class="txt-div relative h-screen" id={`div-${product.id}`}>
-          <div class="absolute w-[50vw] top-1/2 transform translate-y-[-50%] left-[5vw] flex flex-col gap-2">
+          <div class="absolute w-[50vw] top-1/2 transform translate-y-[-50%] left-[15vw] flex flex-col gap-2">
             <h1
               class={`txt-${product.id} text-8xl uppercase title w-fit relative`}
             >
