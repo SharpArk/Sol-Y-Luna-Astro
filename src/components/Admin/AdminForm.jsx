@@ -1,4 +1,3 @@
-"use client";
 import { PUBLIC_API_URL } from "astro:env/client";
 import axios from "axios";
 import { useState } from "react";
@@ -13,9 +12,6 @@ function AdminForm() {
 
     let sizesPrices = formData.get("sizes");
     sizesPrices = sizesPrices.split(",");
-
-    const sizes = [];
-    const prices = [];
 
     const dataSizes = [];
 
@@ -42,7 +38,7 @@ function AdminForm() {
   return (
     <>
       <form
-        className="bg-gray-900 w-1/2 p-4 rounded-lg"
+        className="bg-gray-900 w-fit p-4 rounded-lg"
         onSubmit={handleSubmit}
       >
         <h3 className="w-full bg-gray-800 mb-3 p-5 text-gray-500 rounded-4xl uppercase">

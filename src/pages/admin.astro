@@ -1,6 +1,6 @@
 ---
-import AdminForm from "../components/AdminForm";
-import Layout from "../layouts/Layout.astro";
+import AdminLayout from "../layouts/AdminLayout.astro";
+import AdminPage from "../assets/AdminPage";
 
 import { validateAdminToken } from "../utils/authAdmin";
 
@@ -11,10 +11,11 @@ try {
   console.log(e);
   return Astro.redirect("/login");
 }
+
+import { getSessionName } from "../utils/getName";
+const name = getSessionName(Astro.request.headers);
 ---
 
-<Layout Title="Admin Form" Description="Admin Form" Active="Admin Form">
-  <div class="w-screen min-h-screen flex items-center justify-center">
-    <AdminForm client:only="react" />
-  </div>
-</Layout>
+<AdminLayout Title="Admin Form" Description="Admin Form" Active="Admin Form">
+  <AdminPage client:load name={name} />
+</AdminLayout>

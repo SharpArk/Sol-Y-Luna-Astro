@@ -1,14 +1,17 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "astro:env/server";
 
-export function validateToken(cookies: Request["headers"]) {
-  const cookieString = cookies.get("cookies");
-  const data = cookieString?.match(/acces_token=([^;]+)/);
-  const token = data?.[1];
+export function isSessionActive(headers: Request["headers"]): boolean {
+  const cookieString = headers.get("cookie");
+  const match = cookieString?.match(/access_token=([^;]+)/);
+  const token = match?.[1];
 
-  if (!token) {
-    throw new Error("No Sesion");
+  if (!token) return false;
+
+  try {
+    jwt.verify(token, JWT_SECRET);
+    return true;
+  } catch {
+    return false;
   }
-  const user: any = jwt.verify(token, JWT_SECRET);
-  return user;
 }
