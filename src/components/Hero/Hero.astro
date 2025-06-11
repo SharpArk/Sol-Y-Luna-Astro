@@ -1,0 +1,9 @@
+---
+import HeroReact from "./HeroReact";
+
+import { API_URL } from "astro:env/server";
+
+const data = await fetch(`${API_URL}/store/product4`).then((res) => res.json());
+---
+
+<HeroReact client:load data={data} />

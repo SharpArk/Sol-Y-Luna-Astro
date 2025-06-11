@@ -1,9 +1,6 @@
 ---
-import Hero from "../components/Hero.astro";
 import Layout from "../layouts/Layout.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Hero from "../components/Hero/Hero.astro";
 
 export const prerender = true;
 ---
@@ -13,7 +10,9 @@ export const prerender = true;
   Description="Ropa de alta calidad a toda colombia"
   Active="index"
 >
-  <Hero server:defer> cargando... </Hero>
+  <Hero server:defer>
+    <p>cargando</p>
+  </Hero>
   <section
     class="w-screen h-screen flex justify-start items-center bg-[url('/image.png')] bg-cover p-6 bg-fixed font-[Oxanium] tracking-wider leading-relaxed relative"
   >
