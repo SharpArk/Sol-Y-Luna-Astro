@@ -18,7 +18,7 @@ function HeroReact({ data }) {
           }
           data-active={product.id}
         >
-          <div className="absolute left-0 top-0 h-full w-1/2 flex flex-col justify-center items-center gap-4">
+          <div className="absolute left-0 top-0 pb-[250px] h-full w-1/2 flex flex-col justify-center items-center gap-4">
             <h1
               className={`text-5xl uppercase relative ${styles.title} h-fit w-fit`}
             >
@@ -27,6 +27,11 @@ function HeroReact({ data }) {
             <p className={`${styles.description} max-w-2xl text-lg`}>
               {product.description_short}
             </p>
+            <span className="flex items-center gap-2">
+              {product.sizes.map((size) => (
+                <p key={size.id}>{size.size}</p>
+              ))}
+            </span>
             <p className={`text-2xl ${styles.price} relative`}>
               {product.sizes[0].price}
             </p>
@@ -49,7 +54,7 @@ function HeroReact({ data }) {
               (window.location.href = `/Tienda/producto/${product.id}`)
             }
           >
-            <h1 className={``}>{product.name}</h1>
+            <h1>{product.name}</h1>
             <img
               className="aspect-square w-[250px] rounded-full object-cover"
               src={`${PUBLIC_API_URL}/${product.images[0].image}`}
