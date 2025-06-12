@@ -33,7 +33,6 @@ function ListaProductosReact({ products }) {
   };
 
   const handleMouseLeave = () => {
-    // Esperamos 300ms antes de ocultar el SVG, para permitir transiciones suaves
     hideTimeout.current = setTimeout(() => {
       setHoverPos((prev) => ({ ...prev, visible: false }));
       setSelectedProduct(null);

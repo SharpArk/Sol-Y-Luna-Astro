@@ -101,6 +101,7 @@ function AdminForm() {
             multiple
             type="file"
             autoComplete="off"
+            max={3}
           />
         </div>
         <button

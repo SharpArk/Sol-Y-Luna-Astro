@@ -45,6 +45,9 @@ function HeroReact({ data }) {
             key={product.id}
             onMouseEnter={() => setActiveProduct(product.id)}
             onMouseLeave={() => setActiveProduct(products[0].id)}
+            onClick={() =>
+              (window.location.href = `/Tienda/producto/${product.id}`)
+            }
           >
             <h1 className={``}>{product.name}</h1>
             <img
