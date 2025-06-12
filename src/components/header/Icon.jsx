@@ -16,16 +16,10 @@ export default function Icon() {
   }, []);
 
   return (
-    <div>
-      {isDay ? (
-        <span role="img" aria-label="sol" style={{ fontSize: "3rem" }}>
-          ☀️
-        </span>
-      ) : (
-        <span role="img" aria-label="luna" style={{ fontSize: "3rem" }}>
-          🌙
-        </span>
-      )}
-    </div>
+    <>
+      <span className="text-[3rem]" role="img" aria-label="sol">
+        {isDay ? <>☀️</> : <>🌙</>}
+      </span>
+    </>
   );
 }
