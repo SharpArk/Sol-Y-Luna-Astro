@@ -1,20 +1,55 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { PUBLIC_API_URL } from "astro:env/client";
 import styles from "./listaproductos.module.css";
 
 function ListaProductosReact({ products }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [hoverPos, setHoverPos] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+    visible: false,
+  });
+
+  const containerRef = useRef(null);
+  const hideTimeout = useRef(null);
+
+  const handleMouseEnter = (image, event) => {
+    clearTimeout(hideTimeout.current);
+
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const containerRect = containerRef.current.getBoundingClientRect();
+
+    setSelectedProduct(image);
+    setHoverPos({
+      top: rect.top - containerRect.top,
+      left: rect.left - containerRect.left,
+      width: rect.width,
+      height: rect.height,
+      visible: true,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    // Esperamos 300ms antes de ocultar el SVG, para permitir transiciones suaves
+    hideTimeout.current = setTimeout(() => {
+      setHoverPos((prev) => ({ ...prev, visible: false }));
+      setSelectedProduct(null);
+    }, 300);
+  };
 
   return (
-    <section className="flex">
-      <div className="w-[calc(1/2*100vw)] flex flex-wrap gap-6 items-center justify-center">
+    <section ref={containerRef} className="flex relative overflow-hidden">
+      <div className="w-[calc(1/2*100vw)] flex flex-wrap gap-6 items-center justify-center relative z-10">
         {products.map((product) => (
           <a href={`/Tienda/producto/${product.id}`} key={product.id}>
             <article
               data-img={product.images[0].image}
-              className={`${styles.productCard} relative`}
-              onMouseEnter={() => setSelectedProduct(product.images[0].image)}
-              onMouseLeave={() => setSelectedProduct(null)}
+              className={styles.productCard}
+              onMouseEnter={(e) => handleMouseEnter(product.images[0].image, e)}
+              onMouseLeave={handleMouseLeave}
             >
               <img
                 className="w-[250px] h-[200px] object-cover rounded-t-3xl"
@@ -35,13 +70,25 @@ function ListaProductosReact({ products }) {
             </article>
           </a>
         ))}
+
+        {/* 🔻 Hover SVG animado con fade 🔻 */}
+        <div
+          className={`${styles.svgOverlay} ${
+            hoverPos.visible ? styles.visible : styles.hidden
+          }`}
+          style={{
+            top: `${hoverPos.top}px`,
+            left: `${hoverPos.left}px`,
+            width: `${hoverPos.width}px`,
+            height: `${hoverPos.height}px`,
+          }}
+        />
       </div>
 
-      <div className="w-1/2 fixed right-0 top-0 h-screen">
+      <div className="w-1/2 fixed right-0 top-0 h-screen z-0">
         <div
           className={`${styles.gradient} absolute inset-0 pointer-events-none`}
-        ></div>
-
+        />
         {products.map((product) => (
           <img
             key={product.id}

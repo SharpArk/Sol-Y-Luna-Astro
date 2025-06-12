@@ -2,29 +2,9 @@
   width: 250px;
   height: 300px;
   background-color: #fef1f7;
-  border-radius: 1.5rem; /* rounded-3xl */
+  border-radius: 1.5rem;
   cursor: pointer;
   position: relative;
-}
-
-.productCard::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-image: url("/hover/hover-article.svg");
-  background-size: cover;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  transition: 0.3s ease;
-}
-
-.productCard:hover::after {
-  width: calc(100% + 15px);
-  height: calc(100% + 15px);
-  opacity: 1;
 }
 
 .gradient {
@@ -47,4 +27,26 @@
 .hoverImage {
   mask-image: linear-gradient(to left, #000 80%, transparent);
   transition: opacity 0.3s ease;
+}
+
+.svgOverlay {
+  position: absolute;
+  pointer-events: none;
+  background-image: url("/hover/hover-article.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 20;
+
+  /* Transición suave de posición y opacidad */
+  transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease,
+    opacity 0.3s ease;
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
 }
