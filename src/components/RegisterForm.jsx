@@ -52,6 +52,14 @@ function RegisterForm() {
           Registrarse
         </button>
       </form>
+      <div className="flex justify-center items-center gap-4 mt-4 bg-white rounded-lg shadow-lg p-4 w-[500px]">
+        <button
+          className="w-auto bg-amber-400 p-4 rounded-full text-black uppercase font-bold cursor-pointer"
+          onClick={() => (window.location.href = "/login")}
+        >
+          Inicia Sesión
+        </button>
+      </div>
       <p>{res == null ? "" : res.message}</p>
     </>
   );

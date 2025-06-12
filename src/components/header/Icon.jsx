@@ -17,7 +17,7 @@ export default function Icon() {
 
   return (
     <>
-      <span className="text-[3rem]" role="img" aria-label="sol">
+      <span className="text-[3rem] cursor-default" role="img" aria-label="sol">
         {isDay ? <>☀️</> : <>🌙</>}
       </span>
     </>
