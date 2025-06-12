@@ -23,6 +23,9 @@ importers:
       axios:
         specifier: ^1.9.0
         version: 1.9.0
+      cookie:
+        specifier: ^1.0.2
+        version: 1.0.2
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2

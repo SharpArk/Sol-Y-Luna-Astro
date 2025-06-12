@@ -28,7 +28,7 @@ function LoginForm() {
         }
       );
 
-      setRes({ backResponse: response, message: "inicio de sesión exitoso" });
+      window.location.reload();
     } catch (err) {
       console.error("Error:", err);
       setRes({ backResponse: err, message: "inicio de sesión fallido" });
@@ -38,11 +38,12 @@ function LoginForm() {
   const onLogOut = async (e) => {
     e.preventDefault();
     try {
-      axios.post(
+      await axios.post(
         `${PUBLIC_API_URL}/auth/logout`,
         {},
         { withCredentials: true }
       );
+      window.location.reload();
     } catch (e) {
       setRes({ backResponse: e, message: "inicio de sesión fallido" });
     }

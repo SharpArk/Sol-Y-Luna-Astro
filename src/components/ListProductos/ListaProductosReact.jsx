@@ -41,7 +41,7 @@ function ListaProductosReact({ products }) {
 
   return (
     <section ref={containerRef} className="flex relative overflow-hidden">
-      <div className="w-[calc(1/2*100vw)] flex flex-wrap gap-6 items-center justify-center relative z-10">
+      <div className="w-[calc(1/2*100vw)] flex flex-wrap gap-6 items-center justify-center relative z-10 pt-20">
         {products.map((product) => (
           <a href={`/Tienda/producto/${product.id}`} key={product.id}>
             <article

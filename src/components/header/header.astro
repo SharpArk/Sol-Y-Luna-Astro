@@ -1,10 +1,11 @@
 ---
 const Active = Astro.props.active || "Index";
+import Validate from "./validate.astro";
 export const prerender = true;
 ---
 
 <header
-  class="flex fixed top-[10px] left-[50%] translate-x-[-50%] rounded-full p-4 bg-[#f83c845d] text-black uppercase font-bold backdrop-blur-2xl z-50"
+  class="flex fixed top-[10px] left-[50%] translate-x-[-50%] rounded-full p-4 bg-[#f83c845d] text-black uppercase font-bold backdrop-blur-2xl z-50 justify-center items-center gap-4"
 >
   <nav class="flex gap-4 justify-center items-center">
     <a
@@ -40,5 +41,7 @@ export const prerender = true;
       >
       </div>
     </a>
+    <span class="bg-white w-1 h-8"></span>
+    <Validate server:defer />
   </nav>
 </header>
