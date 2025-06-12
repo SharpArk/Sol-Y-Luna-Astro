@@ -1,0 +1,10 @@
+---
+import { API_URL } from "astro:env/server";
+import ListaProductosReact from "./ListaProductosReact";
+
+const data = await fetch(`${API_URL}/store/products/`).then((res) =>
+  res.json()
+);
+---
+
+<ListaProductosReact client:load products={data} />

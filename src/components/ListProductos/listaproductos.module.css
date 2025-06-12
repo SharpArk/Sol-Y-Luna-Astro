@@ -1,0 +1,50 @@
+.productCard {
+  width: 250px;
+  height: 300px;
+  background-color: #fef1f7;
+  border-radius: 1.5rem; /* rounded-3xl */
+  cursor: pointer;
+  position: relative;
+}
+
+.productCard::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("/hover/hover-article.svg");
+  background-size: cover;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.productCard:hover::after {
+  width: calc(100% + 15px);
+  height: calc(100% + 15px);
+  opacity: 1;
+}
+
+.gradient {
+  background: linear-gradient(to left, #fe68a6, #343446);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.hoverImage {
+  mask-image: linear-gradient(to left, #000 80%, transparent);
+  transition: opacity 0.3s ease;
+}
