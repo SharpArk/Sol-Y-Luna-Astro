@@ -6,7 +6,11 @@ function Login({ Loged }) {
           className="cursor-grab"
           href={Loged.role == "admin" ? "/admin" : "/user"}
         >
-          {Loged.name}
+          <img
+            className="aspect-square w-15 rounded-full"
+            src={Loged.Image}
+            alt=""
+          />
         </a>
       ) : (
         <a className="cursor-grab" href="/login">
