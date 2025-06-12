@@ -17,6 +17,7 @@ function RegisterForm() {
         },
       });
       setRes({ message: res.data.message });
+      window.location.href = "/login"; // Redirigir al login después del registro exitoso
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       setRes({ message: "Error al enviar el formulario" });
