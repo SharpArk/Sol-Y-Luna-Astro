@@ -76,9 +76,19 @@ function LoginForm() {
           Iniciar Sesión
         </button>
       </form>
-      <form onSubmit={onLogOut}>
-        <button>Log Out</button>
-      </form>
+      <div className="flex gap-4 justify-center items-center w-[500px] h-[100px] bg-white rounded-lg shadow-lg p-4 mt-4">
+        <form onSubmit={onLogOut}>
+          <button className="w-auto bg-amber-400 p-4 rounded-full text-black uppercase font-bold cursor-pointer">
+            Log Out
+          </button>
+        </form>
+        <a
+          className="w-auto bg-amber-400 p-4 rounded-full text-black uppercase font-bold cursor-pointer"
+          href="/register"
+        >
+          Registrate
+        </a>
+      </div>
       <p>{res == null ? "" : res.message}</p>
     </>
   );

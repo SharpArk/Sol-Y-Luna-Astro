@@ -12,7 +12,10 @@ export function validateCookie(header: Headers) {
 
   try {
     const user: any = jwt.verify(access_token, JWT_SECRET);
-    return { Loged: { condition: true, name: user.username, role: user.role } };
+    console.log("User validated:", {
+      Loged: { condition: true, name: user.name, role: user.role },
+    });
+    return { Loged: { condition: true, name: user.name, role: user.role } };
   } catch (error) {
     console.error("Token validation error:", error);
     return { Loged: { condition: false, name: null, role: null } };

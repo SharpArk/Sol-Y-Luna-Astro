@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RegisterForm from "../components/RegisterForm";
+---
+
+<Layout
+  Title="Sol y Luna - Registro"
+  Description="Página de registro para nuevos usuarios"
+  Active="index"
+>
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <RegisterForm client:load />
+  </div>
+</Layout>

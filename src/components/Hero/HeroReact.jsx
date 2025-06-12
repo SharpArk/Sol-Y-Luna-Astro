@@ -4,7 +4,15 @@ import styles from "./hero.module.css";
 
 function HeroReact({ data }) {
   const products = data;
-  const [activeProduct, setActiveProduct] = useState(products[0].id);
+  const [activeProduct, setActiveProduct] = useState(products[0]?.id);
+
+  if (!products || products.length === 0) {
+    return (
+      <section className="w-full h-screen flex items-center justify-center">
+        <h1 className="text-4xl font-bold">Muy pronto</h1>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full h-screen flex items-center justify-center">
@@ -18,7 +26,11 @@ function HeroReact({ data }) {
           }
           data-active={product.id}
         >
-          <div className="absolute left-0 top-0 pb-[250px] h-full w-1/2 flex flex-col justify-center items-center gap-4">
+          <div
+            className={`absolute left-0 top-0 ${
+              products.length === 1 ? "" : "pb-[250px]"
+            } h-full w-1/2 flex flex-col justify-center items-center gap-4`}
+          >
             <h1
               className={`text-5xl uppercase relative ${styles.title} h-fit w-fit`}
             >
@@ -43,25 +55,27 @@ function HeroReact({ data }) {
           />
         </div>
       ))}
-      <div className="absolute bottom-4 left-0 w-full flex justify-evenly items-center">
-        {products.slice(1).map((product) => (
-          <div
-            className="w-1/4 flex gap-4 justify-center items-center rounded-lg bg-[#32347d60] backdrop-blur-2xl p-5 hover:bg-[#32347d80] transition-colors duration-300 cursor-pointer"
-            key={product.id}
-            onMouseEnter={() => setActiveProduct(product.id)}
-            onMouseLeave={() => setActiveProduct(products[0].id)}
-            onClick={() =>
-              (window.location.href = `/Tienda/producto/${product.id}`)
-            }
-          >
-            <h1>{product.name}</h1>
-            <img
-              className="aspect-square w-[250px] rounded-full object-cover"
-              src={`${PUBLIC_API_URL}/${product.images[0].image}`}
-            />
-          </div>
-        ))}
-      </div>
+      {products.length > 1 && (
+        <div className="absolute bottom-4 left-0 w-full flex justify-evenly items-center">
+          {products.slice(1).map((product) => (
+            <div
+              className="w-1/4 flex gap-4 justify-center items-center rounded-lg bg-[#32347d60] backdrop-blur-2xl p-5 hover:bg-[#32347d80] transition-colors duration-300 cursor-pointer"
+              key={product.id}
+              onMouseEnter={() => setActiveProduct(product.id)}
+              onMouseLeave={() => setActiveProduct(products[0].id)}
+              onClick={() =>
+                (window.location.href = `/Tienda/producto/${product.id}`)
+              }
+            >
+              <h1>{product.name}</h1>
+              <img
+                className="aspect-square w-[250px] rounded-full object-cover"
+                src={`${PUBLIC_API_URL}/${product.images[0].image}`}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

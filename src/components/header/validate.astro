@@ -2,7 +2,7 @@
 import { validateCookie } from "../../utils/validate";
 import Login from "./Login";
 
-const data = validateCookie(Astro.request.headers); // sin await
+const data = validateCookie(Astro.request.headers);
 ---
 
 <Login client:load Loged={data.Loged} />
