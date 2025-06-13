@@ -7,7 +7,15 @@ export function validateCookie(header: Headers) {
   const access_token = parse(cookie || "").access_token;
 
   if (!access_token) {
-    return { Loged: { condition: false, name: null } };
+    return {
+      Loged: {
+        condition: false,
+        name: null,
+        image: null,
+        role: null,
+        id: null,
+      },
+    };
   }
 
   try {
@@ -17,10 +25,20 @@ export function validateCookie(header: Headers) {
         condition: true,
         Image: user.image,
         role: user.role,
+        id: user.id,
+        name: user.name,
       },
     };
   } catch (error) {
     console.error("Token validation error:", error);
-    return { Loged: { condition: false, Image: null, role: null } };
+    return {
+      Loged: {
+        condition: false,
+        Image: null,
+        role: null,
+        id: null,
+        name: null,
+      },
+    };
   }
 }

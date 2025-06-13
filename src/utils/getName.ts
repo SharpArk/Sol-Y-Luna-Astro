@@ -15,7 +15,7 @@ export function getSessionName(headers: Request["headers"]): string | null {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
-    return decoded.username ?? null;
+    return decoded.name ?? null;
   } catch {
     return null;
   }
