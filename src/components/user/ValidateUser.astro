@@ -1,6 +1,6 @@
 ---
-import { validateCookie } from "../../utils/validate";
-import UserPage from "../../components/user/UserPage";
+import { validateCookie } from "@/utils/validate";
+import UserPage from "@/components/user/UserPage";
 import { API_URL } from "astro:env/server";
 
 const data = validateCookie(Astro.request.headers);
